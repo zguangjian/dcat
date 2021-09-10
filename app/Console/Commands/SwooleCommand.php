@@ -60,7 +60,7 @@ class SwooleCommand extends Command
             echo "Swoole http server is started at http://127.0.0.1:9501\n";
         });
         $server->on('Receive', function () {
-            echo "Swoole http server is Receive at http://127.0.0.1:9501\n";
+            echo "Swoole http server is Receive at http://c127.0.0.1:9501\n";
         });
         $server->on('Close', function () {
             echo "Swoole http server is Close at http://127.0.0.1:9501\n";
