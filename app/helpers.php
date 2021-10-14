@@ -1,14 +1,6 @@
 <?php
-/*
-|--------------------------------------------------------------------------
-| 公共方法
-|--------------------------------------------------------------------------
-|
-*/
 
-use App\Models\TaskIncrement as TaskIncrementModel;
-use Cisco\Aliyunsms\Facades\Aliyunsms;
-use Illuminate\Config\Repository;
+use Illuminate\Support\Arr;
 
 define('__COLOR__', [
     'default' => '#b3b9bf',
@@ -18,6 +10,35 @@ define('__COLOR__', [
     'error' => '#DC143C'
 ]);
 
+if (!function_exists('user_admin_config')) {
+    function user_admin_config($key = null, $value = null)
+    {
+        $session = session();
+
+        if (!$config = $session->get('admin.config')) {
+            $config = config('admin');
+
+            $config['lang'] = config('app.locale');
+        }
+
+        if (is_array($key)) {
+            // 保存
+            foreach ($key as $k => $v) {
+                Arr::set($config, $k, $v);
+            }
+
+            $session->put('admin.config', $config);
+
+            return;
+        }
+
+        if ($key === null) {
+            return $config;
+        }
+
+        return Arr::get($config, $key, $value);
+    }
+}
 
 /**
  * 商家验证码
@@ -25,11 +46,11 @@ define('__COLOR__', [
  * @param string $key
  * @return string
  */
-function share_code($length = 5, $key = "m")
+function business_share_code($length = 5, $key = "b")
 {
     $pattern = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLOMNOPQRSTUVWXYZ';
     for ($i = 0; $i < $length; $i++) {
-        $key .= $pattern{mt_rand(0, 35)}; //生成php随机数
+        $key .= $pattern[mt_rand(0, 35)]; //生成php随机数
     }
     return $key;
 }
@@ -47,6 +68,18 @@ function aliSms($phone, $code)
         "code" => $code,
     ];
     $send = Aliyunsms::sendSms(strval($phone), $SignName, $TemplateCode, $TemplateParam);
+    if ($send->Code == 'OK') {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function sms($phone, $template, $param)
+{
+    $SignName = "阿里云短信测试专用";          //模板签名
+    $send = Aliyunsms::sendSms(strval($phone), $SignName, $template, $param);
+    dd($send);
     if ($send->Code == 'OK') {
         return true;
     } else {
@@ -79,90 +112,34 @@ function ossFile($file)
 }
 
 /**唯一任务订单号
+ * @param string $type
  * @return string
  */
-function taskUniqidString()
+function uniqueString($type = 'time')
 {
-    return time() . substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
+    $prefix = "";
+    switch ($type) {
+        case 'time':
+            $prefix = time();
+            break;
+        case 'date':
+            $prefix = date('YmdHis');
+            break;
+        default;
+    }
+    return $prefix . substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
+
 }
 
-/**
- * 唯一订单号
- * @return string
- */
-function uniqidString()
-{
-    return date('Ymd') . substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
-}
 
 /**
- * 任务增值
- * @return array
- */
-function taskIncrement()
-{
-    return array_column(TaskIncrementModel::findAll([], ['title', 'key', 'value'], 'id', 'asc')->toArray(), 'value', 'key');
-}
-
-/**
- * 任务类型
- * @return array
- */
-function taskType()
-{
-    return array_column(\App\Models\TaskType::findAll([], ['id', 'name', 'image', 'price', 'type'], 'id', 'asc')->toArray(), 'name', 'id');
-}
-
-/**
- * @param string $str
- * @param $id
- * @param string $link
- * @return string
- */
-function line($str, $id, $link = "-")
-{
-    return $str == "" ? $id : $str . $link . $id;
-}
-
-/**
+ * 取小数后几位
  * @param $number
- * @return float
- */
-function percent($number)
-{
-    return floatval($number / 100);
-}
-
-/**
- * @param $message
- * @param $param
- * @return string
- */
-function sprintMessageParam($message, $param)
-{
-    return sprintf($message, $param[0] ?? "", $param[1] ?? "", $param[2] ?? "", $param[3] ?? "");
-}
-
-/**
+ * @param int $length
  * @return false|string
  */
-function getDay()
+function rounded($number, $length = 2)
 {
-    return date('Y-m-d');
-}
-
-/**
- * @return false|string
- */
-function getWeek()
-{
-    return date('Y-W');
-}
-
-/**
- * @return false|string
- */
-function getMonth()
-{
-    return date('Y-m');
+    $number = sprintf("%0" . $length . "f", is_numeric($number) ? $number : 0);;
+    return substr($number, 0, stripos($number, '.') + 1 + $length);
 }

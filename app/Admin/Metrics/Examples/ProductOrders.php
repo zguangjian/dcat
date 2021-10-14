@@ -10,7 +10,7 @@ class ProductOrders extends Round
     /**
      * 初始化卡片内容
      */
-    protected function init()
+    public function init()
     {
         parent::init();
 

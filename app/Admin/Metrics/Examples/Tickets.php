@@ -10,7 +10,7 @@ class Tickets extends RadialBar
     /**
      * 初始化卡片内容
      */
-    protected function init()
+    public function init()
     {
         parent::init();
 
@@ -96,7 +96,7 @@ HTML
     {
         return $this->footer(
             <<<HTML
-<div class="d-flex justify-content-between p-1" style="padding-top: 0!important;">
+<div class="d-flex justify-content-between p-1" style="padding-top: 0!important;">     
     <div class="text-center">
         <p>New Tickets</p>
         <span class="font-lg-1">{$new}</span>
@@ -109,7 +109,7 @@ HTML
         <p>Response Time</p>
         <span class="font-lg-1">{$response}</span>
     </div>
-</div>
+</div>       
 HTML
         );
     }

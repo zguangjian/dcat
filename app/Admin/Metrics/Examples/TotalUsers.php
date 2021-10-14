@@ -2,7 +2,6 @@
 
 namespace App\Admin\Metrics\Examples;
 
-use Closure;
 use Dcat\Admin\Widgets\Metrics\Card;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -12,13 +11,10 @@ class TotalUsers extends Card
     /**
      * 卡片底部内容.
      *
-     * @var string|Renderable|Closure
+     * @var string|Renderable|\Closure
      */
     protected $footer;
 
-    /**
-     * 初始化卡片.
-     */
     protected function init()
     {
         parent::init();
@@ -86,9 +82,9 @@ class TotalUsers extends Card
     }
 
     /**
-     * 设置卡片底部内容.
+     * 设置卡片底部内容
      *
-     * @param string|Renderable|Closure $footer
+     * @param string|Renderable|\Closure $footer
      *
      * @return $this
      */
@@ -119,8 +115,6 @@ HTML;
     }
 
     /**
-     * 渲染卡片底部内容.
-     *
      * @return string
      */
     public function renderFooter()
