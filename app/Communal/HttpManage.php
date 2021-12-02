@@ -75,11 +75,12 @@ class HttpManage
      */
     public static function Response($data = [], $code = 200, $message = "ok", $AES = true)
     {
-        $aes = new AES();
+
+        // $aes = new AES();
         $time = time();
         header('Access-Control-Allow-Origin:*');
         $AES = request('__browser') == 1 || $AES == false || defined('__AesKey__') == false ? false : true;
-        $data = $AES ? $aes->encode(gettype($data) == 'array' ? json_encode($data) : $data, __AesKey__) : $data;
+        // $data = $AES ? $aes->encode(gettype($data) == 'array' ? json_encode($data) : $data, __AesKey__) : $data;
         return \response()->json(compact('data', 'code', 'message', 'time'));
     }
 }

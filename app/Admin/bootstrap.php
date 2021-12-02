@@ -36,22 +36,31 @@ Admin::style('.main-sidebar .nav-sidebar .nav-item>.nav-link {
     border-radius: .1rem;
 }');
 
+define('imgHost', config('filesystems.disks.oss.endpoint'));
+
+Grid::resolving(function (Grid $grid) {
+    $grid->model()->orderBy('id', 'desc');
+    $grid->actions(function (Grid\Displayers\Actions $actions) {
+        $actions->disableView();
+        $actions->disableDelete();
+        //$actions->disableEdit();
+    });
+});
 // 扩展Column
 Grid\Column::extend('code', function ($v) {
     return "<code>$v</code>";
 });
-
 Grid::resolving(function (Grid $grid) {
-    if (! request('_row_')) {
+    if (!request('_row_')) {
         $grid->tableCollapse();
 
 
-       $grid->tools(new App\Admin\Grid\Tools\SwitchGridMode());
+        // $grid->tools(new App\Admin\Grid\Tools\SwitchGridMode());
     }
 });
 
 // 追加菜单
-Admin::menu()->add(include __DIR__.'/menu.php', 0);
+//Admin::menu()->add(include __DIR__.'/menu.php', 0);
 
 Admin::navbar(function (Navbar $navbar) {
     // 切换主题
@@ -80,19 +89,20 @@ HTML
     );
 
     // ajax请求不执行
-//    if (! Dcat\Admin\Support\Helper::isAjaxRequest()) {
-//        $navbar->$method(App\Admin\Actions\AdminSetting::make()->render());
-//    }
+    if (!Dcat\Admin\Support\Helper::isAjaxRequest()) {
+        $navbar->$method(App\Admin\Actions\AdminSetting::make()->render());
+    }
 
     // 下拉菜单
-   // $navbar->right(view('admin.navbar-2'));
+    // $navbar->right(view('admin.navbar-2'));
 
     // 搜索框
     $navbar->right(
         <<<HTML
+
 HTML
     );
 
     // 下拉面板
-    $navbar->right(view('admin.navbar-1'));
+    // $navbar->right(view('admin.navbar-1'));
 });
