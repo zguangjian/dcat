@@ -81,6 +81,7 @@ class HttpManage
         header('Access-Control-Allow-Origin:*');
         $AES = request('__browser') == 1 || $AES == false || defined('__AesKey__') == false ? false : true;
         // $data = $AES ? $aes->encode(gettype($data) == 'array' ? json_encode($data) : $data, __AesKey__) : $data;
-        return \response()->json(compact('data', 'code', 'message', 'time'));
+        return response()->json(compact('data', 'code', 'message', 'time'), $code);
+
     }
 }
