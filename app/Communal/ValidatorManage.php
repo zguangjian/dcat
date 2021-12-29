@@ -15,11 +15,23 @@ use Illuminate\Support\Facades\Validator;
 
 class ValidatorManage
 {
+    public $param;
+
+    public function __construct(array $param = [])
+    {
+        $this->param = $param;
+    }
+
+    public function extract(&$mobile)
+    {
+        extract($this->param);
+    }
+
     /**
      * @param array $param
      * @param array $rule
      * @param array $message
-     * @return array|bool
+     * @return array
      * @throws AjaxException
      */
     public static function make($param = [], $rule = [], $message = [])
@@ -29,21 +41,5 @@ class ValidatorManage
             throw new AjaxException($validate->errors()->first());
         }
         return $param;
-    }
-
-    /**
-     * @param array $param
-     * @param array $rule
-     * @param array $message
-     * @return array|int
-     * @throws AjaxException
-     */
-    public static function extract($param = [], $rule = [], $message = [])
-    {
-        $validate = Validator::make($param, $rule, $message);
-        if ($validate->fails()) {
-            throw new AjaxException($validate->errors()->first());
-        }
-        return extract($param);
     }
 }
