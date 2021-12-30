@@ -9,6 +9,7 @@
 
 namespace App\Communal;
 
+use App\Exceptions\AjaxException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;

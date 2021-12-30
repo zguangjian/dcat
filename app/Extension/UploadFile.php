@@ -10,10 +10,12 @@
 namespace App\Extension;
 
 
-use App\Communal\AjaxException;
 use App\Communal\HttpManage;
+use App\Communal\ValidatorManage;
+use App\Exceptions\AjaxException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class UploadFile
@@ -78,19 +80,19 @@ class UploadFile
                 throw new AjaxException("请上传 " . implode(',', $this->rule) . " 类型文件", 500);
             }
             if ($this->size > 0) {
-                $validate = Validator::make(request()->all(), [
+                ValidatorManage::make(request()->all(), [
                     'file' => 'max:' . $this->size
                 ], [
                     'file.max' => '文件大小不能超过' . $this->size . 'kb'
                 ]);
-                if ($validate->fails()) {
-                    throw new  AjaxException($validate->errors()->first(), 500);
-                }
             }
             $filename = sha1(date('YmdHis', time()) . uniqid()) . '.' . $file->getClientOriginalExtension();
             //存储文件。disk里面的public。总的来说，就是调用disk模块里的public配置
             Storage::disk('oss')->put($filename, file_get_contents($file->getRealPath()));
-            return HttpManage::Response(['url' => config('filesystems.disks.oss.cdnDomain') . $filename]);
+            return HttpManage::Response([
+                'url' => config('filesystems.disks.oss.cdnDomain') . $filename,
+                'file' => $filename
+            ]);
         }
         throw new AjaxException("上传接口异常", 500);
     }

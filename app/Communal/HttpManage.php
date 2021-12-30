@@ -20,6 +20,31 @@ use Illuminate\Http\Response;
  */
 class HttpManage
 {
+    public $data;
+
+    /**
+     * HttpManage constructor.
+     * @param $data
+     */
+    public function __construct($data)
+    {
+        $this->data = $data;
+    }
+
+    /**
+     * @param bool $assoc
+     * @return mixed
+     */
+    public function toArray($assoc = true)
+    {
+        return json_decode($this->data, $assoc);
+    }
+
+    public static function data($data)
+    {
+        return new HttpManage($data);
+    }
+
     /**
      * curl请求
      * @param $url
@@ -27,10 +52,10 @@ class HttpManage
      * @param string $method
      * @param array $header
      * @param bool $multi
-     * @return bool|string
+     * @return HttpManage
      * @throws Exception
      */
-    public function curl($url, $params = [], $method = 'GET', $header = [], $multi = false)
+    public static function curl($url, $params = [], $method = 'GET', $header = [], $multi = false)
     {
         $opts = array(
             CURLOPT_TIMEOUT => 30,
@@ -61,9 +86,11 @@ class HttpManage
         $data = curl_exec($ch);
         $error = curl_error($ch);
         curl_close($ch);
-        if ($error) throw new Exception('请求发生错误：' . $error);
-        return $data;
+        if ($error)
+            throw new Exception('请求发生错误：' . $error);
+        return self::data($data);
     }
+
 
     /**
      * 返回数据类型
@@ -75,7 +102,6 @@ class HttpManage
      */
     public static function Response($data = [], $code = 200, $message = "ok", $AES = true)
     {
-
         // $aes = new AES();
         $time = time();
         header('Access-Control-Allow-Origin:*');
