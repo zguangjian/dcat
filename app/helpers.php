@@ -113,7 +113,7 @@ function getTimeHour($timeDiff = '')
     $hour = sprintf('%02s', intval($timeDiff / 3600));
     $minute = sprintf('%02s', intval(($timeDiff - $hour * 3600) / 60));;
     $second = sprintf('%02s', intval($timeDiff - $hour * 3600 - $minute * 60));
-    return $hour == 0 ? "" : "$hour :" . $hour == 0 && $minute == 0 ? "" : "$minute:" . $second;
+    return $hour == 0 ? "" : "$hour :" . ($hour == 0 && $minute == 0) ? "" : "$minute:" . $second;
 }
 
 /**
