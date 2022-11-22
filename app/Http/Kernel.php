@@ -82,11 +82,11 @@ class Kernel extends HttpKernel
         'guest' => RedirectIfAuthenticated::class,
         'password.confirm' => RequirePassword::class,
         'signed' => ValidateSignature::class,
-        //'throttle' => ThrottleRequests::class,
-        'throttle' => \App\Http\Middleware\ThrottleRequests::class,
+        'throttle' => ThrottleRequests::class,
+        //'throttle' => \App\Http\Middleware\ThrottleRequests::class,
         'verified' => EnsureEmailIsVerified::class,
-        'auth.jwt' => Authenticate::class,
-        'force-json' => ForceJson::class,
-        'jwt' => JwtAuth::class,
+//        'auth.jwt' => Authenticate::class,
+//        'force-json' => ForceJson::class,
+//        'jwt' => JwtAuth::class,
     ];
 }

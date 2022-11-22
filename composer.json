@@ -27,7 +27,10 @@
         "workerman/gateway-worker": "^3.0",
         "yansongda/pay": "^2.0",
         "overtrue/wechat": "~4.0",
-        "workerman/workerman": "^4.0"
+        "workerman/workerman": "^4.0",
+        "grpc/grpc": "^v1.3.0",
+        "google/protobuf": "^v3.3.0",
+        "ext-grpc": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
@@ -45,6 +48,9 @@
         },
         "files": [
             "app/helpers.php"
+        ],
+        "classmap": [
+            "app/Proto"
         ]
     },
     "autoload-dev": {
@@ -78,7 +84,10 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "easywechat-composer/easywechat-composer": true
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

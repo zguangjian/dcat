@@ -1,0 +1,45 @@
+syntax = "proto3";
+option go_package="./userProto";
+
+service UserProto {
+    rpc List(listReq) returns (ListRes);
+    rpc Add(addReq) returns (addRes);
+    rpc Delete(deleteReq) returns (deleteRes);
+}
+
+message UserModel {
+    int32 Id = 1;
+    string Name = 2;
+    int32 Sex = 3;
+    int32  Status = 4;
+    int32  Ctime = 5;
+}
+
+message listReq{
+    string  size =1 ;
+}
+message ListRes{
+        int32 code = 1;
+        string message = 2;
+        repeated UserModel data =3;
+}
+
+message addReq{
+        string Name = 1;
+        int32 Sex = 2;
+        int32  Status = 3;
+        int32  Ctime = 4;
+}
+message addRes{
+     int32 code = 1;
+     string message = 2;
+     UserModel data =3;
+}
+
+message deleteReq{
+    int32  Id =1 ;
+}
+message deleteRes{
+    int32 code = 1;
+    string message = 2;
+}
