@@ -19,11 +19,12 @@ Route::get('/', function () {
     $client = new \App\Grpc\UserGrpc($host, [
         'credentials'=>\Grpc\ChannelCredentials::createInsecure()
     ]);
-    $request = new listReq();
+    $request = new \UserProto\listRequest();
     $request->setSize("赵光健");
+    $request->setKeyword("zgj");
     $call = $client->userList($request);
     list($response, $status) = $call->wait();
-    var_dump('message = '.$response->getMessage());
+    dd($response);
     dd($response);
     return view('welcome');
 });

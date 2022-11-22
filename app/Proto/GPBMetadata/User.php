@@ -16,45 +16,43 @@ class User
         }
         $pool->internalAddGeneratedFile(
             '
-ƒ
+—
 
-user.proto"Q
+user.proto	userProto"Q
 	UserModel
 
 Id (
 Name (	
 Sex (
 Status (
-Ctime ("
-listReq
-size (	"B
-ListRes
+Ctime (",
+listRequest
+keyword (	
+size (	"Q
+listResponse
 code (
-message (	
-data (2
-.UserModel"B
-addReq
+message (	"
+data (2.userProto.UserModel"F
+
+addRequest
 Name (	
 Sex (
 Status (
-Ctime ("A
-addRes
+Ctime ("P
+addResponse
 code (
-message (	
-data (2
-.UserModel"
-	deleteReq
+message (	"
+data (2.userProto.UserModel"
+deleteRequest
 
-Id ("*
-	deleteRes
+Id ("/
+deleteResponse
 code (
-message (	2b
-	UserProto
-List.listReq.ListRes
-Add.addReq.addRes 
-Delete
-.deleteReq
-.deleteResBZ./userProtobproto3'
+message (	2¹
+	UserProto7
+List.userProto.listRequest.userProto.listResponse4
+Add.userProto.addRequest.userProto.addResponse=
+Delete.userProto.deleteRequest.userProto.deleteResponsebproto3'
         , true);
 
         static::$is_initialized = true;

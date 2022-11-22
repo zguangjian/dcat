@@ -11,6 +11,8 @@ namespace App\Grpc;
 
 
 use Grpc\BaseStub;
+use UserProto\listRequest;
+use UserProto\listResponse;
 
 class UserGrpc extends BaseStub
 {
@@ -26,13 +28,13 @@ class UserGrpc extends BaseStub
         parent::__construct($hostname, $opts, $channel);
     }
 
-    public function userList(\listReq $request, $data = [], $options = [])
+    public function userList(listRequest $request, $data = [], $options = [])
     {
         return $this->_simpleRequest(
             "UserProto/List",
             $request,
             [
-                \ListRes::class, 'decode'
+                listResponse::class, 'decode'
             ], $data, $options
         );
     }

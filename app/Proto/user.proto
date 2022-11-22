@@ -1,10 +1,10 @@
 syntax = "proto3";
-option go_package="./userProto";
+package userProto;
 
 service UserProto {
-    rpc List(listReq) returns (ListRes);
-    rpc Add(addReq) returns (addRes);
-    rpc Delete(deleteReq) returns (deleteRes);
+    rpc List(listRequest) returns (listResponse);
+    rpc Add(addRequest) returns (addResponse);
+    rpc Delete(deleteRequest) returns (deleteResponse);
 }
 
 message UserModel {
@@ -15,31 +15,32 @@ message UserModel {
     int32  Ctime = 5;
 }
 
-message listReq{
-    string  size =1 ;
+message listRequest{
+    string  keyword = 1 ;
+    string  size = 2 ;
 }
-message ListRes{
+message listResponse{
         int32 code = 1;
         string message = 2;
         repeated UserModel data =3;
 }
 
-message addReq{
+message addRequest{
         string Name = 1;
         int32 Sex = 2;
         int32  Status = 3;
         int32  Ctime = 4;
 }
-message addRes{
+message addResponse{
      int32 code = 1;
      string message = 2;
-     UserModel data =3;
+     UserModel data = 3;
 }
 
-message deleteReq{
+message deleteRequest{
     int32  Id =1 ;
 }
-message deleteRes{
+message deleteResponse{
     int32 code = 1;
     string message = 2;
 }
