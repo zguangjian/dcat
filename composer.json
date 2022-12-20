@@ -30,7 +30,8 @@
         "workerman/workerman": "^4.0",
         "grpc/grpc": "^v1.3.0",
         "google/protobuf": "^v3.3.0",
-        "ext-grpc": "*"
+        "ext-grpc": "*",
+        "ext-openssl": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

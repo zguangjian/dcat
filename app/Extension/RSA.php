@@ -48,7 +48,7 @@ class RSA
         if (!is_string($data)) {
             return null;
         };
-        return openssl_public_encrypt($data, $encrypted,self::getPublicKey()) ? base64_encode($encrypted) : "";
+        return openssl_public_encrypt($data, $encrypted, self::getPublicKey()) ? base64_encode($encrypted) : "";
     }
 
     /**

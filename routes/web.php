@@ -14,18 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-
-    $host = '127.0.0.1:8801';
-    $client = new \App\Grpc\UserGrpc($host, [
-        'credentials'=>\Grpc\ChannelCredentials::createInsecure()
-    ]);
-    $request = new \UserProto\listRequest();
-    $request->setSize("赵光健");
-    $request->setKeyword("zgj");
-    $call = $client->userList($request);
-    list($response, $status) = $call->wait();
-    dd($response);
-    dd($response);
+    $str = "06cc0206e7a4241f67787e31657ed59f";
+    $str = "iWtOj6qamsbjPvRDCDt7uybtJCO8ICfPxaamr5YwqbSYE2Ar3hI3Pg0NTHk/Kbrp+L1zHCsMSpt3qJZYdqPANeyi7nG8Sy4b0QBTr3hHnUJZn2zYnBWNiDrTjiO/vMr3/NDS4ztyYweaSesGcjbymRucWSC+1FFz9BrhOnncQ1I=";
+    dd(\App\Extension\RSA::decrypt($str));
+    dd(\App\Extension\Aes::decrypt($str));
     return view('welcome');
 });
 
