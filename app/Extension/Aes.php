@@ -2,6 +2,8 @@
 
 namespace App\Extension;
 
+use phpDocumentor\Reflection\Types\Self_;
+
 /**
  * aes 加密 解密类库
  * Class Aes
@@ -9,20 +11,23 @@ namespace App\Extension;
  */
 class Aes
 {
-    private static $key = "12344321";
+    private static $key = "1111111111111111";
 
-    private static $iv = "";
+    private static $method = "AES-128-CBC";
+
+    private static $iv = "1111111111111111";
+    // private static $iv = "zhgerXHBVaaKm8xy";
 
     /**
      * 加密
      * @param $string
-     * @param string $method AES-128-CBC  DES-ECB
+     * @param string $method AES-128-CBC  DES-ECB DES-CBC DES-CTR DES-OFB DES-CFB
      * @return string
      */
-    public static function encrypt($string, $method = "AES-128-ECB")
+    public static function encrypt($string, $method = "")
     {
-        $data = openssl_encrypt($string, $method, self::$key, OPENSSL_RAW_DATA);
-        return strtolower(bin2hex($data));
+        $data = openssl_encrypt($string, $method ?: self::$method, self::$key, OPENSSL_ZERO_PADDING, self::$iv);
+        return base64_encode($data);
     }
 
     /**
@@ -31,9 +36,9 @@ class Aes
      * @param String key   解密的key
      * @return String
      */
-    public static function decrypt($string, $method = "AES-128-ECB")
+    public static function decrypt($string, $method = "")
     {
-        return openssl_decrypt(hex2bin($string), $method, self::$key, OPENSSL_RAW_DATA);
+        return openssl_decrypt($string, $method ?: self::$method, self::$key, OPENSSL_ZERO_PADDING, self::$iv);
     }
 
 }
