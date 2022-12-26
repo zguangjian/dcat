@@ -26,7 +26,7 @@ class Aes
      */
     public static function encrypt($string, $method = "")
     {
-        $data = openssl_encrypt($string, $method ?: self::$method, self::$key, OPENSSL_ZERO_PADDING, self::$iv);
+        $data = openssl_encrypt($string, $method ?: self::$method, self::$key, OPENSSL_RAW_DATA, self::$iv);
         return base64_encode($data);
     }
 
@@ -38,7 +38,7 @@ class Aes
      */
     public static function decrypt($string, $method = "")
     {
-        return openssl_decrypt($string, $method ?: self::$method, self::$key, OPENSSL_ZERO_PADDING, self::$iv);
+        return openssl_decrypt(base64_decode($string), $method ?: self::$method, self::$key, OPENSSL_RAW_DATA, self::$iv);
     }
 
 }
