@@ -11,12 +11,12 @@ use phpDocumentor\Reflection\Types\Self_;
  */
 class Aes
 {
-    private static $key = "1111111111111111";
+    private static $key = "zhgerXHBVaaKm8xy";
 
-    private static $method = "AES-128-CBC";
+    private static $method = "AES-128-ECB";
 
-    private static $iv = "1111111111111111";
-    // private static $iv = "zhgerXHBVaaKm8xy";
+    //private static $iv = "7i2m502gj489joml";
+    private static $iv = "";
 
     /**
      * 加密
