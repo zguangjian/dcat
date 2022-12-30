@@ -1,6 +1,6 @@
 <?php
 /** 项目设置的 */
-define("project_key", "zhgerXHBVaaKm8xy"); //必填
+define("project_key", "HGVTKI6XTS0VEXCS");
 define("project_url", "www.guangjian.site/project/verify");
 /** AES */
 define('aes_key', 'zhgerXHBVaaKm8xy');
