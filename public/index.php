@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
-require_once "./auth.php";
+//require_once "./auth.php";
 /*
 |--------------------------------------------------------------------------
 | Check If The Application Is Under Maintenance

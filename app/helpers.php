@@ -258,3 +258,45 @@ function payConfig()
         ],
     ];
 }
+
+/**
+ * @param $class
+ * @return string|string[]|null
+ */
+function snake_case($class)
+{
+    $value = preg_replace('/\s+/u', '', $class);
+    $value = strtolower(preg_replace('/(.)(?=[A-Z])/u', "$1_", $value));
+    return $value;
+}
+
+/**
+ * @param $data
+ * @return mixed
+ */
+function multipleImageDecode($data)
+{
+    $data = json_decode($data);
+    foreach ($data as &$datum) {
+        $datum = __FILE_HOST__ . $datum;
+    }
+    return $data;
+}
+
+/**
+ * @param $data
+ * @param $pId
+ * @return array
+ */
+function getTree($data, $pId)
+{
+    $tree = [];
+    foreach ($data as $k => $v) {
+        if ($v['pid'] == $pId) {        //父亲找到儿子
+            $v['child'] = getTree($data, $v['id'],);
+            $tree[] = $v;
+            //unset($data[$k]);
+        }
+    }
+    return $tree;
+}

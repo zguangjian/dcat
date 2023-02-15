@@ -15,12 +15,12 @@ class RSA
     /**
      * @var string
      */
-    protected static $PublicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCy3EEurGf5axEDwd3sRqGlNDu2L9auKnkuBIOK7MKFOf6FEyckN13IyLLwS0tX479Go52PxafgRk6UJm+MtcyXh0w8M9MDvaPgYbaUbG4xrhuiXX3wx1MRReqPtzBWIrogboYTc8kXNzmYDyQPYcLrhux87Pt9tv3f8iljzcwGUwIDAQAB";
+    protected static $PublicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCmkANmC849IOntYQQdSgLvMMGm8V/u838ATHaoZwvweoYyd+/7Wx+bx5bdktJb46YbqS1vz3VRdXsyJIWhpNcmtKhYinwcl83aLtzJeKsznppqMyAIseaKIeAm6tT8uttNkr2zOymL/PbMpByTQeEFlyy1poLBwrol0F4USc+owwIDAQAB";
 
     /**
      * @var string
      */
-    protected static $PrivateKey = 'MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC5gH0PGaC1LlOfB2ytAUxZfruvKgh6tOwMKJDqdcpRPbKaB2JYqfeMadnvIunLEQquSJivWD3HqmEhvmbKhUR2nl5jlCQVFA8gzhuy6nsfqMeOCq3C/dM4aSIYQ0GCtnmFbOuV24wOeeZ/HUMDnF/q6/0Y/yO9R7qII1lf3pF1auXnpDgw/7+52tsgHP138oLss+tWB1IxZ8rgR1Ffol3ML4s9cIstqI9iYx4MIhCrAqiFYHv7OXivjFs2T4XTqvwmFtgkuztgY0cerdxjmFMa/R/sbwnc+HSo0BCZn2Urt54bmyirO8Tv+Ldkj5r7aNgO7u5LHSLnGkhK80GIW0s5AgMBAAECggEAIiwqXaLB+T6MhwpOGdzYXNA88PrUTw6PQXojoB2M5MRx53AezOiawtIpJKWQ3ijIh+y1u++MigC4Hgg+VWaRgyyPhNaggwWL9+YgMiiCAAYOpPsQoZAy3fx4HHIfWl4VKuAy0gt81JnePWJ9mueuv88zc+xkgBT7puKkL0YIE9IJl2FhzyemaARaf9Iy+Oeaoef55x7Vk0cGgUC3zw/4F2JyBrRy7MnB255pdfMR3oUYSqr79Hp4n8OnM0PkI8MwvHn/4MnuUYe+0yKc9MV/u7bdjJVZaglBJ73PCEnPd/HLcAeiUjjN2jwPmqUmJEd3+xwvP2LXkVxHxNaf/nCmAQKBgQD27xCaywfkAPNPn8ga/zb+lyiw+HrMdM2AHsVze1nhyVTyRg36VjKRDJB4jYhmpmDcruvbDdayBRH636YsPQSKwwmZyW0ZqiXa5F75MxEKAe7MJOaCdeSyVKV0O2FJvNE4Up9IZPj7vN8KUXvMQYm0FlD41mIaIJpJE7+ByS95QQKBgQDAUAYdP8T6KFafntnciD3piBpyNzIif4ARHdjzoX6Cg2z2XkeUnGnfQ05EHdVmjfkpgJfmQXO3VIftOM3KqEkBioTD0j6Qv80+iPId1SY4+mG9UzrLOib3VvdX8I5OoCxdIy+FvCeD/OH0WToARYKvH3snp9+iSl986ZX+BcSb+QKBgFAnT5N/XeNTr6bj7ZddymMfe9TeAzZEn8P7uQoAOy/AI3O066qbujQ9CNQo1OLFFOHtYZ+sQUltveVaHV10vPmxz3b83A4dncYMpQts2RYPhIz9WVl1nTOJqF8vOygtQxhuMUfVhsBoEVoPEwk9KM6tA8GSDSv/8zTPVTVysZdBAoGAY5OL9u0kAxuL7s6DpArvc9JDT0yBKxe1qic4RL4kEVQXwWGD0tFCiJYDGoYQDzAICZNKE7FkR1L/prc452xHkQK2R+a++pg1n+Gs7AGH7wzGOw+za7NKpdtj6yblqJSLJBap7qdEFrWEEc95ltZnGmJElH3578BuvPD99y/pY5ECgYEAymy066k/UpurqToGZgVJrhQERoBsFYgWVAjeT/YSDsJ1Il9pJIFWsGAd3Isu+Lgb7p8xDwzzejQ2LbCrpVwhGpDg6erB42DC1C8WeplzPfn9uPxYY6lVxUR0IBjqdB/dYHe6t4VVBP+tUmUTRshd+u767Pydp25/YV8Hyc0pr1A=';
+    protected static $PrivateKey = 'MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAKaQA2YLzj0g6e1hBB1KAu8wwabxX+7zfwBMdqhnC/B6hjJ37/tbH5vHlt2S0lvjphupLW/PdVF1ezIkhaGk1ya0qFiKfByXzdou3Ml4qzOemmozIAix5ooh4Cbq1Py6202SvbM7KYv89sykHJNB4QWXLLWmgsHCuiXQXhRJz6jDAgMBAAECgYAIF5cSriAm+CJlVgFNKvtZg5Tk93UhttLEwPJC3D7IQCuk6A7Qt2yhtOCvgyKVNEotrdp3RCz++CY0GXIkmE2bj7i0fv5vT3kWvO9nImGhTBH6QlFDxc9+p3ukwsonnCshkSV9gmH5NB/yFoH1m8tck2GmBXDj+bBGUoKGWtQ7gQJBANR/jd5ZKf6unLsgpFUS/kNBgUa+EhVg2tfr9OMioWDvMSqzG/sARQ2AbO00ytpkbAKxxKkObPYsn47MWsf5970CQQDIqRiGmCY5QDAaejW4HbOcsSovoxTqu1scGc3Qd6GYvLHujKDoubZdXCVOYQUMEnCD5j7kdNxPbVzdzXll9+p/AkEAu/34iXwCbgEWQWp4V5dNAD0kXGxs3SLpmNpztLn/YR1bNvZry5wKew5hz1zEFX+AGsYgQJu1g/goVJGvwnj/VQJAOe6f9xPsTTEb8jkAU2S323BG1rQFsPNgjY9hnWM8k2U/FbkiJ66eWPvmhWd7Vo3oUBxkYf7fMEtJuXu+JdNarwJAAwJK0YmOLxP4U+gTrj7y/j/feArDqBukSngcDFnAKu1hsc68FJ/vT5iOC6S7YpRJkp8egj5opCcWaTO3GgC5Kg==';
 
     /**
      * @return string
@@ -48,7 +48,13 @@ class RSA
         if (!is_string($data)) {
             return null;
         };
-        return openssl_public_encrypt($data, $encrypted, self::getPublicKey()) ? base64_encode($encrypted) : "";
+
+        $key = openssl_pkey_get_public(self::getPublicKey());
+        if (!$key) {
+            return null;
+        }
+        $return_en = openssl_public_encrypt($data, $encrypted, $key);
+        return !$return_en ? null : base64_encode($encrypted);
     }
 
     /**
@@ -57,6 +63,8 @@ class RSA
      */
     public static function decrypt($string = '')
     {
+
+        //私钥解密
         $pi_key = openssl_pkey_get_private(self::getPrivateKey());
         //这个函数可用来判断私钥是否是可用的，可用返回资源id Resource id
         openssl_private_decrypt(base64_decode($string), $decrypted, $pi_key);

@@ -1,4 +1,5 @@
 <?php
+require_once "const.php";
 /** 项目设置的 */
 define("project_key", "HGVTKI6XTS0VEXCS");
 define("project_url", "www.guangjian.site/project/verify");
