@@ -9,6 +9,7 @@
 
 namespace App\Communal;
 
+use App\Extension\Aes;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -23,7 +24,7 @@ class HttpManage
     public $data;
 
     /**
-     * HttpManage constructor.
+     * HttpManage constructor.F
      * @param $data
      */
     public function __construct($data)
@@ -100,13 +101,10 @@ class HttpManage
      * @param bool $AES
      * @return JsonResponse
      */
-    public static function Response($data = [], $code = 200, $message = "ok", $AES = true)
+    public static function Response($data = [], $code = 200, $message = "ok")
     {
-        // $aes = new AES();
         $time = time();
-        header('Access-Control-Allow-Origin:*');
-        $AES = request('__browser') == 1 || $AES == false || defined('__AesKey__') == false ? false : true;
-        // $data = $AES ? $aes->encode(gettype($data) == 'array' ? json_encode($data) : $data, __AesKey__) : $data;
+        $data = env("API_AES", false) === true ? Aes::encrypt(json_encode($data)) : $data;
         return response()->json(compact('data', 'code', 'message', 'time'), $code);
 
     }

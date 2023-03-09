@@ -26,15 +26,22 @@ class AesMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $data = $request->all("data");
-        if ($data) {
-            $data = Aes::decrypt($data);
-            if ($data == false) {
-                throw new AjaxException("参数错误");
+        if (env("API_AES", false) === true) {
+            $data = $request->method() == "POST" ? $request->post("data") : $request->get("data");
+            if (!$data) {
+                foreach ($request->request as $key => $item) {
+                    $request->request->set("$key", "");
+                }
+            } else {
+                $data = Aes::decrypt($data);
+                if (!$data) {
+                    throw new AjaxException("参数错误");
+                }
+                $request->request->set("data", null);
+                foreach (json_decode($data, true) as $key => $item) {
+                    $request->request->set("$key", $item);
+                }
             }
-            $request->attributes->add(json_decode($data, true));
-        } else {
-            throw new AjaxException("参数错误");
         }
         return $next($request);
     }
