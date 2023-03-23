@@ -58,6 +58,7 @@ return [
             'access_id' => 'YOf6D4Fjdk8boU5L', // 这里是你的 OSS 的 accessId,
             'access_key' => "7WAjUNmsNVKD2Y97l2RZmfRgyV0xNM", // 这里是你的 OSS 的 accessKey,
             'bucket' => 'shuadan2021', // 这里是你的 OSS 自定义的存储空间名称,
+            'url' => 'http://img.32301.com/',
             'endpoint' => 'img.32301.com', // 这里以杭州为例
             'cdnDomain' => "img.32301.com/", // 使用 cdn 时才需要写, https://加上 Bucket 域名
             'ssl' => false, // true 使用 'https://' false 使用 'http://'. 默认 false,

@@ -24,16 +24,37 @@ use Illuminate\Support\Facades\Validator;
  */
 class UploadFile
 {
+    /**
+     * @var array
+     */
+    public static $fileType = [
+        "image" => "jpg|jpeg|png|gif",
+        "video" => "flv|avi|3gp|mp4",
+        "excel" => "xls",
+    ];
 
     protected $rule = [];
 
     protected $size = 0;
 
+    protected $dir = "";
+
+    protected $disk = "public";
+
+    protected $prefixInfo = [
+        "prefix_url" => "",
+        "prefix_file" => "",
+    ];
+
     /**
      * UploadFile constructor.
-     * @param $rule
-     * @param $size
+     * @param $dir
      */
+    public function __construct($dir)
+    {
+        $this->dir = $dir;
+        $this->rule = explode("|", self::$fileType[$dir]);
+    }
 
     /**
      * @param $name
@@ -42,7 +63,7 @@ class UploadFile
      */
     public static function __callStatic($name, $arguments)
     {
-        return new UploadFile();
+        return new UploadFile($name);
     }
 
     /**
@@ -52,6 +73,33 @@ class UploadFile
     public function rule($rule)
     {
         $this->rule = $rule;
+        return $this;
+    }
+
+    /**
+     * 设置存储
+     * @param string $disk
+     * @return $this
+     */
+    public function driver($disk = "public")
+    {
+        $this->disk = $disk;
+        switch ($this->disk) {
+            case "public":
+                $this->prefixInfo = [
+                    "prefix_url" => __FILE_HOST__,
+                    "prefix_file" => '/storage/',
+                ];
+                break;
+            case "oss":
+                $this->prefixInfo = [
+                    "prefix_url" => config('filesystems.disks.oss.url'),
+                    "prefix_file" => '/',
+                ];
+                break;
+            default:
+                break;
+        }
         return $this;
     }
 
@@ -87,12 +135,13 @@ class UploadFile
                     throw new  AjaxException($validate->errors()->first(), 500);
                 }
             }
-            $filename = sha1(date('YmdHis', time()) . uniqid()) . '.' . $file->getClientOriginalExtension();
+            $filename = $this->dir . '/' . __YMD_DIR__ . '/' . sha1(date('YmdHis', time()) . uniqid()) . '.' . $file->getClientOriginalExtension();
             //存储文件。disk里面的public。总的来说，就是调用disk模块里的public配置
-            Storage::disk('oss')->put($filename, file_get_contents($file->getRealPath()));
+            Storage::disk($this->disk)->put($filename, file_get_contents($file->getRealPath()));
             return HttpManage::Response([
-                'url' => 'http://' . config('filesystems.disks.oss.cdnDomain') . $filename,
-                'file' => $filename
+                //'url' => 'http://' . config('filesystems.disks.oss.cdnDomain') . $filename,
+                'url' => $this->prefixInfo["prefix_url"] . $filename,
+                'file' => $this->prefixInfo["prefix_file"] . $filename
             ]);
         }
         throw new AjaxException("上传接口异常", 500);
