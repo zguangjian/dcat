@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\ModelTrait;
 use Database\Factories\UserFactory;
 use Eloquent;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -42,7 +43,7 @@ use Illuminate\Support\Carbon;
  */
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, ModelTrait;
 
     /**
      * The attributes that are mass assignable.

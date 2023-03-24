@@ -166,9 +166,10 @@ return [
          * 自定义扩展包
          * Package Service Providers...
          */
-        //Jacobcyl\AliOSS\AliOssServiceProvider::class,
-        //Cisco\Aliyunsms\AliyunsmsServiceProvider::class,
-        //Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Jacobcyl\AliOSS\AliOssServiceProvider::class,
+        Cisco\Aliyunsms\AliyunsmsServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Freyo\Flysystem\QcloudCOSv5\ServiceProvider::class,
 
         /*
          * Application Service Providers...

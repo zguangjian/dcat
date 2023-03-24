@@ -65,6 +65,21 @@ return [
             'isCName' => true, // 是否使用自定义域名，true: Storage.url() 会使用自定义的 cdn 或域名生成文件 url，false: 使用外部节点生成url
             'debug' => false,
         ],
+
+        'cosv5' => [
+            'driver' => 'cosv5',
+            'region' => env('COSV5_REGION', 'ap-guangzhou'),
+            'credentials' => [
+                'appId' => env('COSV5_APP_ID'),
+                'secretId' => env('COSV5_SECRET_ID'),
+                'secretKey' => env('COSV5_SECRET_KEY'),
+            ],
+            'timeout' => env('COSV5_TIMEOUT', 60),
+            'connect_timeout' => env('COSV5_CONNECT_TIMEOUT', 60),
+            'bucket' => env('COSV5_BUCKET'),
+            'cdn' => env('COSV5_CDN'),
+            'scheme' => env('COSV5_SCHEME', 'https'),
+        ],
     ],
 
     /*

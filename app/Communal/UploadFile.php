@@ -14,6 +14,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use function PHPUnit\Framework\matches;
 
 /**
  * Class UploadFile
@@ -84,6 +85,7 @@ class UploadFile
     public function driver($disk = "public")
     {
         $this->disk = $disk;
+
         switch ($this->disk) {
             case "public":
                 $this->prefixInfo = [
