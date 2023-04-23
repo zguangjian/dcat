@@ -35,9 +35,9 @@ class CacheManage
     /**
      * CacheManage constructor.
      * @param $method
-     * @param $param
+     * @param array $param
      */
-    public function __construct($method, $param = [])
+    public function __construct($method, array $param = [])
     {
         $this->method = $method;
         $this->param = $param;
@@ -56,7 +56,7 @@ class CacheManage
     /**
      * @return string
      */
-    private function uniqueKey()
+    private function uniqueKey(): string
     {
         return empty($this->param) ? "" : '__' . implode('__', $this->param);
     }
@@ -64,7 +64,7 @@ class CacheManage
     /**
      * @return string
      */
-    private function getCacheKey()
+    private function getCacheKey(): string
     {
         return "Cache__" . $this->method . $this->uniqueKey();
     }

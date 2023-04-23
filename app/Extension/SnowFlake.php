@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Extension;
+
 use Exception;
 
 /**
@@ -39,7 +40,7 @@ class SnowFlake
     /**
      * @return self
      */
-    public static function getInstance()
+    public static function getInstance(): ?SnowFlake
     {
         if (self::$self == null) {
             self::$self = new self();
@@ -52,7 +53,7 @@ class SnowFlake
      * @throws Exception
      * @throws Exception
      */
-    public function setWorkId()
+    public function setWorkId(): ?SnowFlake
     {
         $workId = rand(1, 1023);
         if ($workId > self::$maxWorkerId || $workId < 0) {
@@ -77,7 +78,7 @@ class SnowFlake
      * @param $lastTimestamp
      * @return string
      */
-    private function tilNextMillis($lastTimestamp)
+    private function tilNextMillis($lastTimestamp): string
     {
         $timestamp = $this->timeGen();
         while ($timestamp <= $lastTimestamp) {
@@ -90,7 +91,7 @@ class SnowFlake
      * @return int
      * @throws Exception
      */
-    public function id()
+    public function id(): int
     {
         $timestamp = $this->timeGen();
 

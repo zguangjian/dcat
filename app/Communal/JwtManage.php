@@ -118,11 +118,11 @@ class JwtManage
 
     /**
      * 加密
-     * @param $params
+     * @param array $params
      * @param string $type
-     * @return array|string
+     * @return array
      */
-    public function encode($params = [], $type = "bearer")
+    public function encode(array $params = [], string $type = "bearer"): array
     {
         $this->access_token = array_merge($this->access_token, $params);
         $this->refresh_token = array_merge($this->refresh_token, $params);
@@ -139,7 +139,7 @@ class JwtManage
      * @return array
      * @throws AjaxException
      */
-    public function decode($token)
+    public function decode($token): array
     {
         try {
             JWT::$leeway = 60;//当前时间减去60，把时间留点余地

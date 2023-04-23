@@ -55,7 +55,7 @@ class RedisManage
      * @param string $mold
      * @return string
      */
-    public function getCacheKey($mold = "cache")
+    public function getCacheKey(string $mold = "cache"): string
     {
         return "Redis__" . ucfirst($mold) . "__" . $this->method . ($this->key === false ? "" : ("__" . $this->key));
     }
@@ -83,7 +83,7 @@ class RedisManage
      * @param int $ttl 秒
      * @return mixed
      */
-    public function setCacheData($data, $ttl = 0)
+    public function setCacheData($data, int $ttl = 0)
     {
         return $ttl > 0 ? Redis::setex(self::getCacheKey(), $ttl, $data) : Redis::set(self::getCacheKey(), $data);
     }
@@ -102,7 +102,7 @@ class RedisManage
      * @param int $len
      * @return mixed
      */
-    public function getListData($start = 0, $len = 1)
+    public function getListData(int $start = 0, int $len = 1)
     {
         return Redis::lrange(self::getCacheKey("list"), $start, $len);
     }
@@ -112,7 +112,7 @@ class RedisManage
      * @param string $direction
      * @return mixed
      */
-    public function setListData($data, $direction = "l")
+    public function setListData($data, string $direction = "l")
     {
         if ($direction == "l") {
             return Redis::lpush(self::getCacheKey("list"), $data);

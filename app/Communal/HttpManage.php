@@ -36,12 +36,12 @@ class HttpManage
      * @param bool $assoc
      * @return mixed
      */
-    public function toArray($assoc = true)
+    public function toArray(bool $assoc = true)
     {
         return json_decode($this->data, $assoc);
     }
 
-    public static function data($data)
+    public static function data($data): HttpManage
     {
         return new HttpManage($data);
     }
@@ -56,7 +56,7 @@ class HttpManage
      * @return HttpManage
      * @throws Exception
      */
-    public static function curl($url, $params = [], $method = 'GET', $header = [], $multi = false)
+    public static function curl($url, array $params = [], string $method = 'GET', array $header = [], bool $multi = false): HttpManage
     {
         $opts = array(
             CURLOPT_TIMEOUT => 30,
@@ -98,10 +98,9 @@ class HttpManage
      * @param array $data
      * @param int $code
      * @param string $message
-     * @param bool $AES
      * @return JsonResponse
      */
-    public static function Response($data = [], $code = 200, $message = "ok")
+    public static function Response(array $data = [], int $code = 200, string $message = "ok"): JsonResponse
     {
         $time = time();
         $data = env("API_AES", false) === true ? Aes::encrypt(json_encode($data)) : $data;

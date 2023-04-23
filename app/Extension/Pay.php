@@ -11,6 +11,7 @@ namespace App\Extension;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Yansongda\Pay\Exceptions\InvalidArgumentException;
+use Yansongda\Pay\Exceptions\InvalidConfigException;
 use Yansongda\Pay\Exceptions\InvalidSignException;
 use Yansongda\Supports\Collection;
 
@@ -92,7 +93,7 @@ class Pay
      * Pay constructor.
      * @param string $method
      */
-    public function __construct($method = "alipay")
+    public function __construct(string $method = "alipay")
     {
         $this->method = $method;
         if ($this->method == "alipay") {
@@ -119,7 +120,7 @@ class Pay
      * @param string $openid
      * @return string|RedirectResponse|Collection
      */
-    public function wap($order, $openid = "")
+    public function wap($order, string $openid = "")
     {
         if ($this->method == "alipay") {
             return $this->pay->wap($order);
@@ -148,16 +149,16 @@ class Pay
      * @param $order
      * @return Collection
      */
-    public function scan($order)
+    public function scan($order): Collection
     {
         return $this->pay->scan($order);
     }
 
     /**
      * @throws InvalidArgumentException
-     * @throws InvalidSignException
+     * @throws InvalidSignException|InvalidConfigException
      */
-    public function callback()
+    public function callback(): Collection
     {
         try {
             $data = $this->pay->verify();

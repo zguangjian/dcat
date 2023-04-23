@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Communal\HttpManage;
 use App\Traits\ModelTrait;
 use Database\Factories\UserFactory;
 use Eloquent;
