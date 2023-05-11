@@ -12,10 +12,8 @@ namespace App\Extension;
 use App\Exceptions\AjaxException;
 use App\Traits\InstanceTrait;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redis;
 use Psr\SimpleCache\InvalidArgumentException;
-use Redis;
-
-use function Symfony\Component\Translation\t;
 
 class RedisLock
 {
@@ -32,27 +30,31 @@ class RedisLock
 
     public function __construct()
     {
-        $this->_redis = cache()->store("redis");
+        $this->_redis = Redis::connection();
     }
 
     /**
      * @param string $key 键
-     * @param callable $callback
-     * @param string $errMsg
+     * @param callable $callback 回调函数
+     * @param string $errMsg 错误信息
+     * @return mixed
+     * @throws AjaxException
      * @throws InvalidArgumentException
-     * @throws RedisException|AjaxException|\RedisException
      */
     public function lock(string $key, callable $callback, string $errMsg = "")
     {
-        $value = rand(1, 100000) . rand(1, 100000);
-
-         $isLocked = $this->_redis->set($key, $value, ['nx', 'ex' => self::expire]);
-//        $isLocked = $this->_redis->rawCommand('set', $key, $value, "EX", self::expire, "NX");
+        $value = uniqid();
+        $isLocked = $this->_redis->set($key, $value, "ex", self::expire, "nx");
+//        $isLocked = $this->_redis->command('set', $key, $value, "EX", self::expire, "NX");
         if ($isLocked) {
             $this->_lockId[$key] = $value;
-            $res = call_user_func($callback);
-            $this->unlock($key);
-            file_put_contents("lock.txt", "locked:$isLocked" . PHP_EOL, FILE_APPEND);
+            try {
+                $res = call_user_func($callback);
+                $this->unlock($key);
+            } catch (\Throwable $e) {
+                $this->unlock($key);
+                throw new AjaxException($e->getMessage());
+            }
             return $res;
         } else {
             throw new AjaxException($errMsg);
@@ -64,7 +66,7 @@ class RedisLock
     /**
      * @param string $key
      * @return bool
-     * @throws InvalidArgumentException|RedisException
+     * @throws InvalidArgumentException
      */
     public function unlock(string $key): bool
     {
@@ -72,8 +74,7 @@ class RedisLock
             $lockId = $this->_lockId[$key];
             $rid = $this->_redis->get($key);
             if ($lockId == $rid) {
-                $this->_redis->delete($key);
-                Log::info("解除锁成功：" . $key . "!");
+                $this->_redis->del($key);
                 return true;
             }
         }

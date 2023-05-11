@@ -10,7 +10,6 @@
     "require": {
         "php": "^7.1|^8.0",
         "ext-curl": "*",
-        "ext-grpc": "*",
         "ext-json": "*",
         "ext-openssl": "*",
         "barryvdh/laravel-ide-helper": "^2.10",
@@ -23,16 +22,20 @@
         "firebase/php-jwt": "^5.4",
         "freyo/flysystem-qcloud-cos-v5": "^2.2",
         "fruitcake/laravel-cors": "^2.0",
-        "google/protobuf": "^v3.3.0",
-        "grpc/grpc": "^v1.3.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "jacobcyl/ali-oss-storage": "2.1",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
+        "predis/predis": "^2.1"
+    },
+    "require-not-important": {
+        "ext-grpc": "*",
+        "yansongda/pay": "^2.0",
         "overtrue/wechat": "~4.0",
         "workerman/gateway-worker": "^3.0",
         "workerman/workerman": "^4.0",
-        "yansongda/pay": "^2.0"
+        "google/protobuf": "^v3.3.0",
+        "grpc/grpc": "^v1.3.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
