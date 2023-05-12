@@ -27,6 +27,7 @@ class RedisLock
     protected $_lockId;
 
     const expire = 10;
+    const prefix = "redis_lock_";
 
     public function __construct()
     {
@@ -44,6 +45,7 @@ class RedisLock
     public function lock(string $key, callable $callback, string $errMsg = "")
     {
         $value = uniqid();
+        $key = self::prefix . $key;
         $isLocked = $this->_redis->set($key, $value, "ex", self::expire, "nx");
 //        $isLocked = $this->_redis->command('set', $key, $value, "EX", self::expire, "NX");
         if ($isLocked) {
@@ -59,8 +61,6 @@ class RedisLock
         } else {
             throw new AjaxException($errMsg);
         }
-
-
     }
 
     /**
@@ -71,12 +71,10 @@ class RedisLock
     public function unlock(string $key): bool
     {
         if (isset($this->_lockId[$key])) {
-            $lockId = $this->_lockId[$key];
-            $rid = $this->_redis->get($key);
-            if ($lockId == $rid) {
-                $this->_redis->del($key);
-                return true;
+            if ($this->_lockId[$key] == $this->_redis->get($key)) {
+                return (bool)($this->_redis->del($key));
             }
+            return false;
         }
         return false;
     }
