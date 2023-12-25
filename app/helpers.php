@@ -26,17 +26,19 @@ if (!function_exists('user_admin_config')) {
             foreach ($key as $k => $v) {
                 Arr::set($config, $k, $v);
             }
-
             $session->put('admin.config', $config);
-
             return;
         }
-
         if ($key === null) {
             return $config;
         }
-
         return Arr::get($config, $key, $value);
+    }
+}
+if (!function_exists('array_get')) {
+    function array_get($array, $key, $default = null)
+    {
+        return Arr::get($array, $key, $default = null);
     }
 }
 
